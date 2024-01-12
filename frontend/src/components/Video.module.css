@@ -1,0 +1,19 @@
+.video-container {
+  width: 60%;
+  padding: 3em;
+
+  & > div {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5em;
+    justify-items: center;
+    align-items: center;
+    width: fit-content;
+    margin: auto;
+  }
+
+  & video {
+    border-radius: 12px;
+    grid-column: 1 / -1;
+  }
+}

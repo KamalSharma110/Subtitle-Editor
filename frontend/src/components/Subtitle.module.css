@@ -1,0 +1,60 @@
+.subtitle {
+  display: grid;
+  grid-template-columns: 15fr 3fr 3fr 1fr;
+  justify-items: center;
+  align-items: center;
+  color: gray;
+  font-weight: 500;
+  margin-bottom: 1.5em;
+
+  & div {
+    display: flex;
+    flex-direction: column;
+
+    & span:has(ion-icon) {
+      display: flex;
+      align-items: center;
+    }
+
+    & span:not(:has(ion-icon)) {
+      color: #333;
+    }
+  }
+
+  & input {
+    width: 100%;
+    height: 100%;
+    outline: none;
+    border: none;
+    padding-left: 1em;
+    font-size: 1.01rem;
+    font-weight: 500;
+
+    &::placeholder {
+      font-family: "Quicksand", "sans-serif";
+      font-weight: 500;
+      color: gray;
+      font-size: 1.05rem;
+    }
+
+    &:focus {
+      border-left: 5px solid #0098fd40;
+    }
+  }
+
+  & ion-icon {
+    --ionicon-stroke-width: 38px;
+  }
+
+  & :where(ion-icon, span:has(>ion-icon)) {
+    cursor: pointer;
+
+    &:hover{
+      color: #0098fdc4;
+    }
+  }
+
+  & > ion-icon:last-child:hover {
+    color: #ff0000a6;
+  }
+}

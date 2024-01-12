@@ -1,0 +1,26 @@
+.header{
+    padding: .8em 2em;
+    /* box-shadow: 0 0 9px -5px #333; */
+    border-bottom: 1px solid #0000000d;
+
+    & nav{
+        display: flex;
+        justify-content: space-between;
+
+        & span{
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        & ul{
+            display: flex;
+            gap: 3em;
+            align-items: center;
+            list-style: none;
+        }
+    }
+}
+
+.active{
+    color: rgb(0 152 253);
+}
