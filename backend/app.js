@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 const bodyParser = require('body-parser');
 
 const subRoutes = require('./routes/subtitle');
@@ -7,6 +8,7 @@ const { mongoConnect } = require('./utils/database');
 const app = express();
 
 app.use(bodyParser.json());
+app.use('/subs', express.static(path.join(__dirname, 'subs')));
 
 app.use((req, res, next) => {
     res.set('Access-Control-Allow-Origin', '*');

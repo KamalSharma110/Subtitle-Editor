@@ -10,6 +10,8 @@ router.post('/store-sub', subControllers.storeSubtitleFile);
 
 router.get('/download-sub/:id', subControllers.downloadSubtitleFile);
 
+router.get('/projects', subControllers.loadPreviousProjects);
+
 module.exports = router;
 
 

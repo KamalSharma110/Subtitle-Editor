@@ -22,4 +22,10 @@ module.exports = class Subtitle {
 
     return db.collection('Subtitles').findOne({_id: new mongodb.ObjectId(id)});
   }
+
+  static loadPreviousProjects(){
+    const db = getDb();
+
+    return db.collection('Subtitles').find().toArray();
+  }
 };

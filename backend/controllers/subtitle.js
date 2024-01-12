@@ -1,21 +1,19 @@
 const Subtitle = require("../models/subtitle");
+const path = require("path");
 
 exports.storeVideoUrl = (req, res, next) => {
-  Subtitle.storeVideoUrl(req.body.url, req.body.title)
+  const title = req.body.title.substring(0, req.body.title.indexOf("."));
+
+  Subtitle.storeVideoUrl(req.body.url, title)
     .then(({ insertedId: id }) => {
-      res.status(201).json({ id });
+      res.status(201).json({ id, title });
     })
     .catch((err) => next(err));
 };
 
 exports.storeSubtitleFile = (req, res, next) => {
-  const path = require("path");
 
-  const fullPath = path.join(
-    path.dirname(require.main.filename),
-    "subs",
-    Date.now() + ".vtt"
-  );
+  const fullPath = "subs/" + Date.now() + ".vtt";
 
   require("fs").writeFileSync(fullPath, req.body.data);
 
@@ -31,11 +29,24 @@ exports.downloadSubtitleFile = (req, res, next) => {
     .then((result) => {
       const fs = require("fs");
 
-      const readStream = fs.createReadStream(result.subtitlePath);
+      const readStream = fs.createReadStream(
+        path.join(path.dirname(require.main.filename), result.subtitlePath)
+      );
 
-      res.set('Content-Type', 'text/vtt');
-      res.set('Content-Disposition', 'attachment');
+      const title = encodeURIComponent(result.title);
+
+      res.set("Content-Type", "text/vtt");
+      res.set(
+        "Content-Disposition",
+        'attachment; filename="' + title + '.vtt"'
+      );
       readStream.pipe(res);
     })
+    .catch((err) => next(err));
+};
+
+exports.loadPreviousProjects = (req, res, next) => {
+  Subtitle.loadPreviousProjects()
+    .then((result) => res.status(200).json({ result }))
     .catch((err) => next(err));
 };

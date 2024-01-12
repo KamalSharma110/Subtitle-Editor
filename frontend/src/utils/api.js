@@ -24,12 +24,11 @@ export const uploadFilesToFirebase = async (blob, navigate) => {
     () => {
       getDownloadURL(uploadTask.snapshot.ref).then(async(downloadURL) => {
         console.log("File available at", downloadURL);
-        const id = await storeVideoUrl(downloadURL, blob.name);
+        await storeVideoUrl(downloadURL, blob.name);
 
-        localStorage.setItem('id', id);
 
         navigate("/edit", {
-          state: { url: URL.createObjectURL(blob) },
+          state: { blob },
         });
       });
     }
@@ -79,6 +78,8 @@ export const storeVideoUrl = async(url, title) => {
     throw new Error('error');
   }
 
+  localStorage.setItem('id', resData.id);
+  localStorage.setItem('title', resData.title);
   return resData.id;
 }
 
@@ -98,12 +99,24 @@ export const storeSubtitleFile = async(data) => {
   return resData;
 }
 
-export const downloadSubtitleFile = () => {
+export const downloadSubtitleFile = (id) => {
   const element = document.createElement('a');
   element.href = 'http://localhost:8080/download-sub/' + localStorage.getItem('id');
-  element.download = 'sample.vtt';
+  element.download = localStorage.getItem('title') + '.vtt';
   document.body.appendChild(element);
   element.click();
   document.body.removeChild(element);
 }
+
+export const loadPreviousProjects = async() => {
+  const response = await fetch('http://localhost:8080/projects');
+
+  const resData = await response.json();
+
+  if(!response.ok){
+    throw new Error(resData.error);
+  }
+
+  return resData.result;
+};
 

@@ -1,4 +1,4 @@
-// import { useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { useRef, useState } from "react";
 
 import classes from "./Video.module.css";
@@ -8,7 +8,7 @@ import vid from "../assets/Fast & Furious 9 – Official Trailer (Universal Pict
 import subtitle from "../assets/subtitle.vtt";
 
 const Video = () => {
-  // const location = useLocation();
+  const location = useLocation();
   const ref = useRef();
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
@@ -38,8 +38,8 @@ const Video = () => {
           onTimeUpdate={(e) => setCurrentTime(e.target.currentTime)}
           onLoadedData={(e) => setDuration(e.target.duration)}
         >
-          <source src={vid} />
-          <track label="English" srcLang="en" src={subtitle} default={true} />
+          <source src={URL.createObjectURL(location.state.blob) || vid} />
+          <track label="English" srcLang="en" src={location.state.subPath ? URL.createObjectURL(location.state.subPath) : subtitle} default={true} />
         </video>
         <Player
           play={play}

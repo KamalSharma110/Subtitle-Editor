@@ -7,20 +7,49 @@
         display: flex;
         justify-content: space-between;
 
-        & span{
+        & > span{
             font-size: 2rem;
             font-weight: 700;
         }
 
-        & ul{
-            display: flex;
-            gap: 3em;
-            align-items: center;
-            list-style: none;
+        & button{
+            cursor: pointer;
+
+            & + div{
+                cursor: pointer;
+                opacity: 0;
+                position: fixed;
+                right: 5em;
+                top: 3em;
+                transition: all 200ms;
+
+                background-color: white;
+                border-radius: 15px;
+                box-shadow: 0 0 20px -10px #00000063;
+
+                &:hover{
+                    opacity: 1;
+                }
+
+                & span{
+                    /* border-bottom: 1px solid dimgray; */
+                    display: block;
+                    font-size: .8rem;
+                    font-weight: 600;
+                    background-color: white;
+                    padding: 1em;
+                    border-radius: 15px;
+
+                    &:hover{
+                        background-color: #f6f6f6;
+                    }
+                }
+            }
         }
+
     }
 }
 
-.active{
-    color: rgb(0 152 253);
+nav button:hover + div {
+    opacity: 1;
 }
