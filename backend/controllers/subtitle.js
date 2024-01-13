@@ -44,9 +44,3 @@ exports.downloadSubtitleFile = (req, res, next) => {
     })
     .catch((err) => next(err));
 };
-
-exports.loadPreviousProjects = (req, res, next) => {
-  Subtitle.loadPreviousProjects()
-    .then((result) => res.status(200).json({ result }))
-    .catch((err) => next(err));
-};

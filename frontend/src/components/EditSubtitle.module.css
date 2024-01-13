@@ -1,24 +1,63 @@
 .edit-subtitle {
-    width: 40%;
-    height: 100vh;
-    border-right: 1px solid #00000048;
-    padding: 1.5em 3em;
-    padding-right: 1.5em;
+  width: 40%;
+  max-height: 90vh;
+  border-right: 1px solid #00000017;
+  padding-inline: 1em;
+  overflow: auto;
+  
+  & > div:nth-child(1) {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 1.5em;
+    padding-top: 1em;
+  }
 
-    & button{
-        width: 100%;
-        text-align: start;
-        padding: 1.3em 1em;
-        font-weight: 600;
-        color: dimgray;
-        outline: none;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
+  & hr{
+    margin-block: 1em;
+    opacity: .151;
+  }
 
-        &:hover{
-            background-color: rgba(3, 124, 205, 6%);
-            color: rgb(0 152 253);
-        }
+  & button {
+    text-align: start;
+    padding: 1em;
+    font-weight: 700;
+    outline: none;
+    border: none;
+    border-radius: 5px;
+    transition: all 200ms;
+    
+    display: flex;
+    align-items: center;
+    gap: 0.4em;
+    
+    &:enabled{
+      color: dimgray;
+      cursor: pointer;
     }
+
+    &:disabled{
+      color: #bebbbb;
+      cursor: not-allowed;
+    }
+
+    &:hover:enabled {
+      background-color: #037ccd0f;
+      color: #0098fd;
+    }
+
+    & ion-icon{
+      --ionicon-stroke-width: 51px;
+      font-size: 1.1rem;
+    }
+  }
+
+  & > button{
+    margin-left: auto;
+    margin-block: 2em;
+  }
+
+  & > ul + button{
+    margin-block: 1em;
+  }
 }

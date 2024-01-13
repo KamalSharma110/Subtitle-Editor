@@ -5,7 +5,7 @@
   align-items: center;
   color: gray;
   font-weight: 500;
-  margin-bottom: 1.5em;
+  padding-block: 1em;
 
   & div {
     display: flex;
@@ -43,7 +43,8 @@
   }
 
   & ion-icon {
-    --ionicon-stroke-width: 38px;
+    --ionicon-stroke-width: 47px;
+    font-size: 1.1rem;
   }
 
   & :where(ion-icon, span:has(>ion-icon)) {

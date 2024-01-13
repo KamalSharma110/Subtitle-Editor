@@ -1,15 +1,19 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 import classes from "./Subtitle.module.css";
 import { formatTime } from "../utils/api";
 
 let video;
 let textTrack;
-const Subtitle = ({ id, startTime: st, endTime: et, text, removeSubtitle }) => {
-  const [subText, setSubText] = useState(text);
-  const [startTime, setStartTime] = useState(st);
-  const [endTime, setEndTime] = useState(et);
-
+const Subtitle = ({
+  id,
+  startTime,
+  endTime,
+  text,
+  removeSubtitle,
+  subtitles,
+  setSubtitles,
+}) => {
   useEffect(() => {
     video = document.getElementsByTagName("video")[0];
     textTrack = video.textTracks[0];
@@ -19,21 +23,45 @@ const Subtitle = ({ id, startTime: st, endTime: et, text, removeSubtitle }) => {
     let cue = textTrack.cues.getCueById(id);
     //should retrieve cue only just right before we need it because cues are dynamically changing data
     cue.text = e.target.value;
-    setSubText(e.target.value);
+
+    setSubtitles(
+      subtitles.map((sub) => {
+        if (sub.id === id) {
+          sub.text = e.target.value;
+          return sub;
+        } else return sub;
+      })
+    );
   };
 
-  const startTimeHandler = () => {
+  const startTimeHandler = (e) => {
     let cue = textTrack.cues.getCueById(id);
 
     cue.startTime = video.currentTime;
-    setStartTime(video.currentTime);
+
+    setSubtitles(
+      subtitles.map((sub) => {
+        if (sub.id === id) {
+          sub.startTime = video.currentTime;
+          return sub;
+        } else return sub;
+      })
+    );
   };
 
   const endTimeHandler = () => {
     let cue = textTrack.cues.getCueById(id);
 
     cue.endTime = video.currentTime;
-    setEndTime(video.currentTime);
+
+    setSubtitles(
+      subtitles.map((sub) => {
+        if (sub.id === id) {
+          sub.endTime = video.currentTime;
+          return sub;
+        } else return sub;
+      })
+    );
   };
 
   const removeHandler = () => {
@@ -46,7 +74,7 @@ const Subtitle = ({ id, startTime: st, endTime: et, text, removeSubtitle }) => {
       <input
         type="text"
         placeholder="New Text"
-        value={subText}
+        value={text}
         onChange={changeHandler}
       />
       <div>
@@ -61,10 +89,7 @@ const Subtitle = ({ id, startTime: st, endTime: et, text, removeSubtitle }) => {
         <span>{formatTime(startTime, true)}</span>
         <span>{formatTime(endTime, true)}</span>
       </div>
-      <ion-icon
-        name="trash-outline"
-        onClick={removeHandler}
-      ></ion-icon>
+      <ion-icon name="trash-outline" onClick={removeHandler}></ion-icon>
     </div>
   );
 };

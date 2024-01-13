@@ -43,7 +43,6 @@ const Player = ({ play, pause, rewind, forward, videoElementRef : ref }) => {
         onMouseDown={mouseDownHandler}
         onMouseUp={mouseUpHandler}
       ></ion-icon>
-
     </div>
   );
 };

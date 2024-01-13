@@ -4,8 +4,6 @@ import { useRef, useState } from "react";
 import classes from "./Video.module.css";
 import Player from "./Player";
 import Time from "./Time";
-import vid from "../assets/Fast & Furious 9 – Official Trailer (Universal Pictures) HD.mp4";
-import subtitle from "../assets/subtitle.vtt";
 
 const Video = () => {
   const location = useLocation();
@@ -39,9 +37,10 @@ const Video = () => {
           onTimeUpdate={(e) => setCurrentTime(e.target.currentTime)}
           onLoadedData={(e) => setDuration(e.target.duration)}
         >
-          <source src={vid} />
+          <source src={location.state.url} />
           {/* <track label="English" srcLang="en" src={subtitle} default={true} /> */}
         </video>
+        <Time currentTime={currentTime} duration={duration} />
         <Player
           play={play}
           pause={pause}
@@ -49,7 +48,6 @@ const Video = () => {
           forward={forward}
           videoElementRef={ref}
         />
-        <Time currentTime={currentTime} duration={duration} />
       </div>
     </section>
   );

@@ -94,7 +94,7 @@ export const storeSubtitleFile = async(data) => {
   return resData;
 }
 
-export const downloadSubtitleFile = (id) => {
+export const downloadSubtitleFile = () => {
   const element = document.createElement('a');
   element.href = 'http://localhost:8080/download-sub/' + localStorage.getItem('id');
   element.download = localStorage.getItem('title') + '.vtt';
@@ -102,26 +102,3 @@ export const downloadSubtitleFile = (id) => {
   element.click();
   document.body.removeChild(element);
 }
-
-export const loadPreviousProjects = async() => {
-  const response = await fetch('http://localhost:8080/projects');
-
-  const resData = await response.json();
-
-  if(!response.ok){
-    throw new Error(resData.error);
-  }
-
-  return resData.result;
-};
-
-export const loadFile = async(subPath) => {
-  const response = await fetch("http://localhost:8080/" + subPath);
-
-  const blob = await response.blob();
-
-  const file = new File([blob], 'sample.vtt', {type: 'text/vtt'});
-
-  return URL.createObjectURL(file);
-};
-
