@@ -10,3 +10,24 @@ a {
   font-weight: 600;
   color: black;
 }
+
+@media (max-width: 89.3125em) {
+  html{
+    font-size: 14px;
+  }
+  
+}
+
+/* @media (max-width: 46.875em) {
+  html{
+    font-size: 10px;
+  }
+  
+} */
+
+@media (max-width: 45.1875em) {
+  html{
+    font-size: 12px;
+  }
+  
+}

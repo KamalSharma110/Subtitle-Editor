@@ -8,7 +8,7 @@ import {
 
 import app from "../firebase/firebase";
 
-export const uploadFilesToFirebase = async (blob, navigate) => {
+export const uploadFilesToFirebase = async (blob, navigate, setProgress) => {
   //   alert(`${title} file is going to be uploaded to firebase.`);
   const storage = getStorage(app);
   const storageRef = ref(storage, blob.name);
@@ -16,13 +16,15 @@ export const uploadFilesToFirebase = async (blob, navigate) => {
 
   uploadTask.on(
     "state_changed",
-    () => {},
+    (snapshot) => {
+      const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+      setProgress(progress);
+    },
     () => {},
     () => {
       getDownloadURL(uploadTask.snapshot.ref).then(async(downloadURL) => {
-        console.log("File available at", downloadURL);
         await storeVideoUrl(downloadURL, blob.name);
-        navigate("/edit", {
+        navigate("/home/edit", {
           state: { url: URL.createObjectURL(blob) },
         });
       });
@@ -32,16 +34,18 @@ export const uploadFilesToFirebase = async (blob, navigate) => {
 
 export const formatTime = (time, needPrecision) => {
   let res = "";
-
-  if(needPrecision) time = time.toFixed(3);
+  
+  if(needPrecision) time = +(time.toFixed(3));
   else time = Math.ceil(time);
 
+  // console.log(typeof time);
   res +=
     Math.floor(time / 60)
       .toString()
       .padStart(2, "0") +
-    ":" +
-    (time % 60).toString().padStart(2, "0");
+    ":";
+    time = needPrecision ? (time % 60).toFixed(3) : (time % 60);
+    res += time.toString().padStart(2, "0");
 
   return res;
 };

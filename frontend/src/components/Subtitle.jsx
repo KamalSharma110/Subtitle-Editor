@@ -34,15 +34,17 @@ const Subtitle = ({
     );
   };
 
-  const startTimeHandler = (e) => {
+  const startTimeHandler = () => {
     let cue = textTrack.cues.getCueById(id);
 
     cue.startTime = video.currentTime;
+    cue.endTime = video.currentTime + 3;
 
     setSubtitles(
       subtitles.map((sub) => {
         if (sub.id === id) {
           sub.startTime = video.currentTime;
+          sub.endTime = video.currentTime + 3;
           return sub;
         } else return sub;
       })
@@ -81,9 +83,11 @@ const Subtitle = ({
         <span onClick={startTimeHandler}>
           <ion-icon name="time-outline"></ion-icon> &nbsp; In
         </span>
+        <span>Click to set this cue's start time</span>
         <span onClick={endTimeHandler}>
           <ion-icon name="time-outline"></ion-icon> &nbsp; Out
         </span>
+        <span>Click to set this cue's end time</span>
       </div>
       <div>
         <span>{formatTime(startTime, true)}</span>

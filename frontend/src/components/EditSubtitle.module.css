@@ -61,3 +61,10 @@
     margin-block: 1em;
   }
 }
+
+@media (max-width: 62.5em) {
+  .edit-subtitle{
+    width: 50%;
+  }
+  
+}

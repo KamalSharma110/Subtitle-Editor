@@ -9,7 +9,7 @@
     padding: 3em;
     text-align: center;
     box-shadow: 0 0 10px -8px black;
-    animation: open-modal 400ms ease-out;
+    animation: open-modal 400ms;
 
     & ion-icon {
         font-size: 1.3rem;
@@ -63,10 +63,6 @@
 @keyframes open-modal {
     0%{
         transform: scale(0);
-    }
-
-    90% {
-        transform: scale(1.2);
     }
 
     100%{

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import {v4} from 'uuid';
 
 import Subtitle from "./Subtitle";
 import { downloadSubtitleFile, parser, storeSubtitleFile } from "../utils/api";
@@ -36,7 +37,7 @@ const Subtitles = () => {
     const video = document.querySelector("video");
 
     const latestSub = subtitles[subtitles.length - 1];
-    const id = latestSub ? (+latestSub.id + 1).toString() : "1";
+    const id = v4();
     const text = latestSub?.text || "";
     const startTime = video.currentTime;
     const endTime = startTime + 3;
@@ -57,9 +58,14 @@ const Subtitles = () => {
     setSubtitles([...updatedSubtitles]);
   };
 
-  const saveHandler = async () => {
+  const saveHandler = async (e) => {
     const data = parser();
     disableDwnldBtn(! await storeSubtitleFile(data));
+
+    e.target.firstChild.nodeValue = 'Saved';
+    setTimeout(() => {
+      e.target.firstChild.nodeValue = 'Save Subtitles';
+    }, 1000);
   };
 
   return (
@@ -74,7 +80,7 @@ const Subtitles = () => {
       </div>
       <hr />
       {subtitles.length > 0 && <ul>
-        {subtitles.map((cue) => {
+        {subtitles.sort((a, b) => a.startTime - b.startTime).map((cue) => {
           return (
             <li key={cue.id} style={{ listStyle: "none" }}>
               <Subtitle

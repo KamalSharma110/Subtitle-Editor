@@ -1,4 +1,5 @@
 .player {
+  position: relative;
   text-align: center;
   display: flex;
   justify-content: center;
@@ -15,14 +16,31 @@
     cursor: pointer;
     transition: all 200ms;
 
-    &:nth-child(2) {
+    &:nth-of-type(2) {
       font-size: 2.6rem;
       padding: .25em;
+    }
+
+    & + span{
+      display: none;
+      color: white;
+      background-color: #333;
+      border-radius: 5px;
+      padding: 0.3em 0.7em;
+      font-size: .8rem;
+      font-weight: 100;
+      position: absolute;
+      top: -2em;
+      z-index: 100;
     }
 
     &:hover {
       background-color: #037ccd0f;
       color: #5cafe6;
+
+      & + span{
+        display: unset;
+      }
     }
   }
 }

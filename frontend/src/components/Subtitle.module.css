@@ -8,6 +8,7 @@
   padding-block: 1em;
 
   & div {
+    position: relative;
     display: flex;
     flex-direction: column;
 
@@ -47,11 +48,30 @@
     font-size: 1.1rem;
   }
 
+  & span:has(>ion-icon) + span{
+      display: none;
+      width: max-content;
+      color: white;
+      background-color: #333;
+      border-radius: 5px;
+      padding: 0.3em 0.7em;
+      font-size: .8rem;
+      font-weight: 100;
+      position: absolute;
+      top: -2em;
+      left: -1em;
+      z-index: 100;
+  }
+
   & :where(ion-icon, span:has(>ion-icon)) {
     cursor: pointer;
 
     &:hover{
       color: #0098fdc4;
+
+      & + span{
+        display: unset;
+      }
     }
   }
 
@@ -59,3 +79,12 @@
     color: #ff0000a6;
   }
 }
+
+@media (max-width: 62.5em) {
+  .subtitle{
+    grid-template-columns: 10fr 3fr 3fr 1fr;
+
+  }
+  
+}
+
