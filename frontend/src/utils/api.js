@@ -65,7 +65,7 @@ export const parser = () => {
 };
 
 export const storeVideoUrl = async(url, title) => {
-  const response = await fetch('http://localhost:8080/store-video-url', {
+  const response = await fetch('https://subtitle-editor.onrender.com/store-video-url', {
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify({url, title}),
@@ -83,7 +83,7 @@ export const storeVideoUrl = async(url, title) => {
 }
 
 export const storeSubtitleFile = async(data) => {
-  const response = await fetch('http://localhost:8080/store-sub', {
+  const response = await fetch('https://subtitle-editor.onrender.com/store-sub', {
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify({data, id: localStorage.getItem('id')}),
@@ -100,7 +100,7 @@ export const storeSubtitleFile = async(data) => {
 
 export const downloadSubtitleFile = () => {
   const element = document.createElement('a');
-  element.href = 'http://localhost:8080/download-sub/' + localStorage.getItem('id');
+  element.href = 'https://subtitle-editor.onrender.com/download-sub/' + localStorage.getItem('id');
   element.download = localStorage.getItem('title') + '.vtt';
   document.body.appendChild(element);
   element.click();
