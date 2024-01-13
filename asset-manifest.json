@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/Subtitle-Editor/static/css/main.f4012e55.css",
+    "main.js": "/Subtitle-Editor/static/js/main.8b1f9d90.js",
+    "static/media/sub.png": "/Subtitle-Editor/static/media/sub.6fc2732dbf43303c0bad.png",
+    "index.html": "/Subtitle-Editor/index.html",
+    "main.f4012e55.css.map": "/Subtitle-Editor/static/css/main.f4012e55.css.map",
+    "main.8b1f9d90.js.map": "/Subtitle-Editor/static/js/main.8b1f9d90.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.f4012e55.css",
+    "static/js/main.8b1f9d90.js"
+  ]
+}
