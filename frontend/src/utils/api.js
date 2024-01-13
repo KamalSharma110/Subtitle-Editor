@@ -9,12 +9,9 @@ import {
 import app from "../firebase/firebase";
 
 export const uploadFilesToFirebase = async (blob, navigate) => {
-
   //   alert(`${title} file is going to be uploaded to firebase.`);
-
   const storage = getStorage(app);
   const storageRef = ref(storage, blob.name);
-
   const uploadTask = uploadBytesResumable(storageRef, blob);
 
   uploadTask.on(
@@ -25,10 +22,8 @@ export const uploadFilesToFirebase = async (blob, navigate) => {
       getDownloadURL(uploadTask.snapshot.ref).then(async(downloadURL) => {
         console.log("File available at", downloadURL);
         await storeVideoUrl(downloadURL, blob.name);
-
-
         navigate("/edit", {
-          state: { blob },
+          state: { url: URL.createObjectURL(blob) },
         });
       });
     }
@@ -118,5 +113,15 @@ export const loadPreviousProjects = async() => {
   }
 
   return resData.result;
+};
+
+export const loadFile = async(subPath) => {
+  const response = await fetch("http://localhost:8080/" + subPath);
+
+  const blob = await response.blob();
+
+  const file = new File([blob], 'sample.vtt', {type: 'text/vtt'});
+
+  return URL.createObjectURL(file);
 };
 

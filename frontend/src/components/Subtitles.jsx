@@ -8,7 +8,7 @@ const Subtitles = () => {
 
   useEffect(() => {
     setTimeout(() => {
-      let cues = document.querySelector("video").textTracks[0].cues;
+      let cues = document.querySelector("video").textTracks[0]?.cues || [];
       cues = [...cues];
       const arr = [];
       cues.forEach((cue) => {

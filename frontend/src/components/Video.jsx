@@ -34,12 +34,13 @@ const Video = () => {
     <section className={classes["video-container"]}>
       <div>
         <video
+          crossOrigin="anonymous"
           ref={ref}
           onTimeUpdate={(e) => setCurrentTime(e.target.currentTime)}
           onLoadedData={(e) => setDuration(e.target.duration)}
         >
-          <source src={URL.createObjectURL(location.state.blob) || vid} />
-          <track label="English" srcLang="en" src={location.state.subPath ? URL.createObjectURL(location.state.subPath) : subtitle} default={true} />
+          <source src={vid} />
+          {/* <track label="English" srcLang="en" src={subtitle} default={true} /> */}
         </video>
         <Player
           play={play}
